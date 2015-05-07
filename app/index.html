@@ -1,0 +1,35 @@
+<html lang="en" ng-app="site">
+  <head>
+    <title>Weather Web App Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  </head>
+  <body>
+    
+    <div ng-controller="CitiesController">
+      <form novalidate class="simple-form">
+        Name: <input type="text" ng-model="field.city" /><br />
+        <input type="button" ng-click="reset()" value="Reset" />
+        <input type="submit" ng-click="update(field)" value="Save" />
+      </form>
+      <pre>form = {{user | json}}</pre>
+      <pre>master = {{master | json}}</pre>
+    </div>
+    
+    <div class="container-fluid" ng-controller="WeatherAppCtrl as weatherAppCtrl">
+      <h1>Weather Data</h1>
+      <p>This is some {{weatherAppCtrl}}</p> 
+    </div>
+
+    <script src="scripts/vendor/angular.min.js"></script>
+    <script src="scripts/app.js"></script>
+<!--
+    <script src="scripts/controllers/ListController.js"></script>
+-->
+  
+  </body>
+</html>
