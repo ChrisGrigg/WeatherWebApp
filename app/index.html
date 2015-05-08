@@ -13,19 +13,18 @@
     <div ng-controller="CitiesController">
       <form novalidate class="simple-form">
         City Name: <input type="text" ng-model="field.city" /><br />
-        <input type="hidden" ng-model="newcontact.id">
-        <input type="submit" ng-click="saveCity()" value="Save" />
+        <input type="submit" ng-click="getWeatherData()" value="Save" />
       </form>
-    </div>
     
-    <ul class="" ng-controller="WeatherAppCtrl">
-      <li class="" ng-repeat="weatherItem in weatherList">
-          <h3><strong>{{weatherItem.name}}</strong></h3>
-          <p>{{weatherItem.weather}}
-          <br /><br />
-          <i>{{weatherItem.weather}}</i></p>
-      </li>
-    </ul>
+      <ul class="">
+        <li class="" ng-repeat="weatherItem in weatherList">
+            <h3><strong>{{weatherItem.name}}</strong></h3>
+            <p>{{weatherItem.weather}}
+            <br /><br />
+            <i>{{weatherItem.weather}}</i></p>
+        </li>
+      </ul>
+    </div>
 
     <script src="scripts/vendor/angular.min.js"></script>
     <script src="scripts/app.js"></script>

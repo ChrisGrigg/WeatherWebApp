@@ -30,11 +30,11 @@
     
     //simply returns the contacts list
     this.list = function () {
-        return cities;
+      return cities;
     }
   });
   
-  app.service('WeatherService', function(){
+  app.service('WeatherService', function() {
     var weatherList = [];
     
     this.addCity = function(city) {
@@ -46,12 +46,19 @@
     }
   });
   
-  app.controller('WeatherAppCtrl', ['$scope', '$http', 'WeatherService', function($scope, $http, WeatherService)
-  {
-      var citiesList = JSON.parse(localStorage.getItem('cities'));
+  app.controller('CitiesController', ['$scope', '$http', 'CitiesService', 'WeatherService', function ($scope, $http, CitiesService, WeatherService) {
+
+    $scope.cities = CitiesService.list();
     
-      for (var i=0; i<citiesList.length; i++) {
-        $http.get('http://api.openweathermap.org/data/2.5/weather?q='+citiesList[i])
+    $scope.getWeatherData = function () {
+           
+      if($scope.field) {
+        CitiesService.save($scope.field);
+        $scope.field = {};
+      }
+      
+      for (var i=0; i<CitiesService.list().length; i++) {
+        $http.get('http://api.openweathermap.org/data/2.5/weather?q='+CitiesService.list()[i])
             .success(function(data)
             {
                 WeatherService.addCity(data);
@@ -60,20 +67,9 @@
             {
                 alert('error loading weatherAppCtrl json');
             });
-      };
+      }
+    };
     
-      $scope.weatherList = WeatherService.list();
-  }]);
-  
-  app.controller('CitiesController', function ($scope, CitiesService) {
-
-    $scope.cities = CitiesService.list();
-
-    $scope.saveCity = function () {
-        CitiesService.save($scope.field);
-        $scope.field = {};
-    }
-
 //    $scope.delete = function (id) {
 //        CitiesService.delete(id);
 //        if ($scope.field.id == id) $scope.field = {};
@@ -82,5 +78,8 @@
 //    $scope.edit = function (id) {
 //        $scope.field = angular.copy(CitiesService.get(id));
 //    }
-  });
+
+    $scope.weatherList = WeatherService.list();
+  }]);
+  
 })();
