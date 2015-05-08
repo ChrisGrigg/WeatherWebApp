@@ -12,18 +12,20 @@
     
     <div ng-controller="CitiesController">
       <form novalidate class="simple-form">
-        Name: <input type="text" ng-model="field.city" /><br />
-        <input type="button" ng-click="reset()" value="Reset" />
-        <input type="submit" ng-click="update(field)" value="Save" />
+        City Name: <input type="text" ng-model="field.city" /><br />
+        <input type="hidden" ng-model="newcontact.id">
+        <input type="submit" ng-click="saveCity()" value="Save" />
       </form>
-      <pre>form = {{user | json}}</pre>
-      <pre>master = {{master | json}}</pre>
     </div>
     
-    <div class="container-fluid" ng-controller="WeatherAppCtrl as weatherAppCtrl">
-      <h1>Weather Data</h1>
-      <p>This is some {{weatherAppCtrl}}</p> 
-    </div>
+    <ul class="" ng-controller="WeatherAppCtrl">
+      <li class="" ng-repeat="weatherItem in weatherList">
+          <h3><strong>{{weatherItem.name}}</strong></h3>
+          <p>{{weatherItem.weather}}
+          <br /><br />
+          <i>{{weatherItem.weather}}</i></p>
+      </li>
+    </ul>
 
     <script src="scripts/vendor/angular.min.js"></script>
     <script src="scripts/app.js"></script>

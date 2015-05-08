@@ -4,50 +4,83 @@
 
 //var CHRISG = CHRISG || {};
 
-(function () 
+(function ()
 {
   'use strict';
+  
   var app = angular.module('site', []);
   var citiesArray = []; // holds information for list, to loop through
+//  var weatherData = [];
   
-  app.controller('CitiesController', ['$scope', '$http', function($scope, $http) {
-//      $scope.master = [];
-    $scope.saved = localStorage.getItem('cities');
-	  $scope.cities = (localStorage.getItem('cities')!==null) ? JSON.parse($scope.saved) : ['Brisbane'];
-    localStorage.setItem('cities', JSON.stringify($scope.cities));
-
-      $scope.update = function(field) {
-        console.log('cities.json loaded!');
-        $scope.cities.push(field.city);
-        $scope.todoText = ''; //clear the input after adding
-        localStorage.setItem('cities', JSON.stringify($scope.cities));
-      };
-
-      $scope.reset = function() {
-        $scope.user = angular.copy($scope.master);
-      };
-
-      $scope.reset();
-  }]);
-  
-  app.controller('WeatherAppCtrl', ['$http', function($http)
-  {
-      var weatherAppCtrl = this;
-      var citiesList = JSON.parse(localStorage.getItem('cities'));
-      console.log('localStorage.getItem[0].city = ' + citiesList[0]);
+  app.service('CitiesService', function() {
+    //to create unique contact id
+    var uid = 1;
+    var cities = [];
+    var savedCities;
     
-//      for (var i=0; i<citiesList.length; i++) {
-        $http.get('http://api.openweathermap.org/data/2.5/weather?q='+citiesList[0])
+    savedCities = localStorage.getItem('cities');
+	  cities = (localStorage.getItem('cities')!==null) ? JSON.parse(savedCities) : ['Brisbane'];
+    localStorage.setItem('cities', JSON.stringify(cities));
+
+    this.save = function(field) {
+      cities.push(field.city);
+      field.city = ''; //clear the input after adding
+      localStorage.setItem('cities', JSON.stringify(cities));
+    };
+    
+    //simply returns the contacts list
+    this.list = function () {
+        return cities;
+    }
+  });
+  
+  app.service('WeatherService', function(){
+    var weatherList = [];
+    
+    this.addCity = function(city) {
+      weatherList.push(city);
+    }
+    
+    this.list = function() {
+      return weatherList;
+    }
+  });
+  
+  app.controller('WeatherAppCtrl', ['$scope', '$http', 'WeatherService', function($scope, $http, WeatherService)
+  {
+      var citiesList = JSON.parse(localStorage.getItem('cities'));
+    
+      for (var i=0; i<citiesList.length; i++) {
+        $http.get('http://api.openweathermap.org/data/2.5/weather?q='+citiesList[i])
             .success(function(data)
             {
-                console.log('weatherApp.json loaded!')
-                weatherAppCtrl.intro = data;
+                WeatherService.addCity(data);
             })
             .error(function()
             {
                 alert('error loading weatherAppCtrl json');
             });
-//      }
+      };
+    
+      $scope.weatherList = WeatherService.list();
   }]);
   
+  app.controller('CitiesController', function ($scope, CitiesService) {
+
+    $scope.cities = CitiesService.list();
+
+    $scope.saveCity = function () {
+        CitiesService.save($scope.field);
+        $scope.field = {};
+    }
+
+//    $scope.delete = function (id) {
+//        CitiesService.delete(id);
+//        if ($scope.field.id == id) $scope.field = {};
+//    }
+//
+//    $scope.edit = function (id) {
+//        $scope.field = angular.copy(CitiesService.get(id));
+//    }
+  });
 })();
