@@ -19,9 +19,9 @@
       <ul class="">
         <li class="" ng-repeat="weatherItem in weatherList">
             <h3><strong>{{weatherItem.name}}</strong></h3>
-            <p>{{weatherItem.weather}}
+            <p>Wind speed: {{weatherItem.wind.speed}}
             <br /><br />
-            <i>{{weatherItem.weather}}</i></p>
+            <i>Description: {{weatherItem.weather[0].description}}</i></p>
         </li>
       </ul>
     </div>

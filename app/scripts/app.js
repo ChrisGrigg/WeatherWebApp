@@ -69,6 +69,7 @@
             });
       }
     };
+    $scope.getWeatherData();
     
 //    $scope.delete = function (id) {
 //        CitiesService.delete(id);
