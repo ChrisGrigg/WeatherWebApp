@@ -1,9 +1,10 @@
 (function ()
 {
   'use strict';
-  var module = angular.module('app', []);
+  
+  var app = angular.module('app', []);
  
-module.service('CitiesService', function () {
+  app.service('CitiesService', function () {
     //to create unique city id
     var uid = 1;
      
@@ -57,10 +58,17 @@ module.service('CitiesService', function () {
     this.list = function () {
         return cities;
     }
-});
+  });
  
-module.controller('CityController', ['$scope', '$http', 'CitiesService', function ($scope, $http, CitiesService) {
+  app.controller('CityController', ['$scope', '$http', 'CitiesService', function ($scope, $http, CitiesService) {
  
+//    $scope.result2 = '';
+//    $scope.options2 = {
+//      country: 'ca',
+//      types: '(cities)'
+//    };    
+//    $scope.details2 = '';
+  
     $scope.cities = CitiesService.list();
   
     $scope.newCity = $scope.cities[0]; // start off with Brisbane and its weather data as default
@@ -70,12 +78,17 @@ module.controller('CityController', ['$scope', '$http', 'CitiesService', functio
       $http.get('http://api.openweathermap.org/data/2.5/weather?q='+$scope.newCity.name)
             .success(function(data)
             {
-                $scope.newCity.weatherDesc = data.weather[0].description;
-                $scope.newCity.temperature = Math.round(data.main.temp - 273.15) + ' C'
-                $scope.newCity.windSpeed = data.wind.speed + ' mps'
-                
-                CitiesService.save($scope.newCity);
-                $scope.newCity = {};
+                if(!data.message) {
+                  $scope.newCity.weatherDesc = data.weather[0].description;
+                  $scope.newCity.temperature = Math.round(data.main.temp - 273.15) + ' C'
+                  $scope.newCity.windSpeed = data.wind.speed + ' mps'
+
+                  CitiesService.save($scope.newCity);
+                  $scope.newCity = {};
+                } else {
+                  alert('Error loading country data, please try again.');
+                  $scope.newCity = '';
+                }
             })
             .error(function()
             {
@@ -91,6 +104,6 @@ module.controller('CityController', ['$scope', '$http', 'CitiesService', functio
         CitiesService.delete(id);
         if ($scope.newCity.id == id) $scope.newCity = {};
     }
-}])
+  }]);
 
 })();
