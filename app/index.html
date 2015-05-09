@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/main.css">
     <script src="scripts/vendor/jquery.min.js"></script>
     <script src="scripts/vendor/bootstrap.min.js"></script>
 
@@ -11,6 +12,7 @@
   <body>
     
     <div class="container" ng-controller="CityController">
+      <h1>Weather Web App</h1>
       <div class="row"><!-- /.col-lg-6 --> 
         <div class="col-lg-6"> 
           <div class="input-group"> 
@@ -26,7 +28,7 @@
       <div class="list-group">
           <div class="list-group-item" ng-repeat="city in cities | orderBy:'-id'">
               <h4 class="list-group-item-heading">{{ city.name }}</h4>
-            <p class="list-group-item-text"><b>Weather: </b>{{ city.weather.weather[0].description }} | <b>Wind Speed: </b>{{ city.weather.wind.speed }} | <a href="#" ng-click="delete(city.id)">delete</a></p>
+            <p class="list-group-item-text"><b>Weather: </b>{{ city.weatherDesc }} | <b>Temperature: </b> {{ city.temperature }} | <b>Wind Speed: </b>{{ city.windSpeed }} | <a href="#" ng-click="delete(city.id)">delete</a></p>
           </div>
       </div>
     </div>

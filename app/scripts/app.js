@@ -70,13 +70,17 @@ module.controller('CityController', ['$scope', '$http', 'CitiesService', functio
       $http.get('http://api.openweathermap.org/data/2.5/weather?q='+$scope.newCity.name)
             .success(function(data)
             {
-                $scope.newCity.weather = data;
+                $scope.newCity.weatherDesc = data.weather[0].description;
+                $scope.newCity.temperature = Math.round(data.main.temp - 273.15) + ' C'
+                $scope.newCity.windSpeed = data.wind.speed + ' mps'
+                
                 CitiesService.save($scope.newCity);
                 $scope.newCity = {};
             })
             .error(function()
             {
-                alert('error loading weatherAppCtrl json');
+                alert('Error loading country data, please try again.');
+                $scope.newCity = '';
             });
     }
     
