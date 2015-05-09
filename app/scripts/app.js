@@ -68,13 +68,15 @@
  
   app.controller('CityController', ['$scope', '$http', 'CitiesService', function ($scope, $http, CitiesService) {
 
+    var url = 'http://api.openweathermap.org/data/2.5/weather?q=';
+    
     $scope.cities = CitiesService.list();
   
     $scope.newCity = $scope.cities[0]; // start off with Brisbane and its weather data as default
   
     $scope.saveCity = function () {
       
-      $http.get('http://api.openweathermap.org/data/2.5/weather?q='+$scope.newCity.name)
+      $http.get(url+$scope.newCity.name)
             .success(function(data)
             {
                 if(!data.message) {
@@ -114,6 +116,8 @@
         $scope.orderProp = 'windSpeed';
       }
     }
+    
+    
   }]);
 
 })();
