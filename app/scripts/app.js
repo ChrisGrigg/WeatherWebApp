@@ -67,14 +67,7 @@
   });
  
   app.controller('CityController', ['$scope', '$http', 'CitiesService', function ($scope, $http, CitiesService) {
- 
-//    $scope.result2 = '';
-//    $scope.options2 = {
-//      country: 'ca',
-//      types: '(cities)'
-//    };    
-//    $scope.details2 = '';
-  
+
     $scope.cities = CitiesService.list();
   
     $scope.newCity = $scope.cities[0]; // start off with Brisbane and its weather data as default
