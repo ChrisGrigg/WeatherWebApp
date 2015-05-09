@@ -20,8 +20,8 @@
       
         // format and simplify data for city
         city.weatherDesc = city.data.weather[0].description;
-        city.temperature = Math.round(city.data.main.temp - 273.15) + ' C'; // Temperature is in Kelvin so requires formula to conert to Celcius
-        city.windSpeed = city.data.wind.speed + ' mps' // append wind speed format
+        city.temperature = Math.round(city.data.main.temp - 273.15); // Temperature is in Kelvin so requires formula to conert to Celcius
+        city.windSpeed = city.data.wind.speed; // append wind speed format
         
         if (city.id == null) {
             //if this is new city, add it in cities array
@@ -81,6 +81,7 @@
                   $scope.newCity.data = data;
                   CitiesService.save($scope.newCity);
                   $scope.newCity = {};
+                  $scope.orderProp = '-id'; // order by id so newest entry is at top of list
                 } else {
                   alert('Error loading country data, please try again.');
                   $scope.newCity = '';
@@ -99,6 +100,19 @@
  
         CitiesService.delete(id);
         if ($scope.newCity.id == id) $scope.newCity = {};
+    }
+    
+    // order by any field
+    $scope.orderBy = function(value) {
+      if(value === 0) {
+        $scope.orderProp = 'name';
+      }else if(value === 1) {
+        $scope.orderProp = 'weatherDesc';
+      }else if(value === 2) {
+        $scope.orderProp = 'temperature';
+      }else if(value === 3) {
+        $scope.orderProp = 'windSpeed';
+      }
     }
   }]);
 

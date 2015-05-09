@@ -24,9 +24,10 @@
       </div><!-- /.row -->
     
       <div class="list-group">
-          <div class="list-group-item" ng-repeat="city in cities | orderBy:'-id'">
+        <h4>Order by: </h4><a href='#' ng-click='orderBy(0)'>City name</a> | <a href='#' ng-click='orderBy(1)'>Weather</a> | <a href='#' ng-click='orderBy(2)'>Temperature</a> | <a href='#' ng-click='orderBy(3)'>Wind Speed</a>
+          <div class="list-group-item" ng-repeat="city in cities | orderBy:orderProp">
               <h4 class="list-group-item-heading">{{ city.name }}</h4>
-            <p class="list-group-item-text"><b>Weather: </b>{{ city.weatherDesc }} | <b>Temperature: </b> {{ city.temperature }} | <b>Wind Speed: </b>{{ city.windSpeed }} | <a href="#" ng-click="delete(city.id)">delete</a></p>
+            <p class="list-group-item-text"><b>Weather: </b>{{ city.weatherDesc }} | <b>Temperature: </b> {{ city.temperature }} C | <b>Wind Speed: </b>{{ city.windSpeed }} mps | <a href="#" ng-click="delete(city.id)">delete</a></p>
           </div>
       </div>
     </div>
