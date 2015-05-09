@@ -17,6 +17,12 @@
     //save method create a new city if not already exists
     //else update the existing object
     this.save = function (city) {
+      
+        // format and simplify data for city
+        city.weatherDesc = city.data.weather[0].description;
+        city.temperature = Math.round(city.data.main.temp - 273.15) + ' C'; // Temperature is in Kelvin so requires formula to conert to Celcius
+        city.windSpeed = city.data.wind.speed + ' mps' // append wind speed format
+        
         if (city.id == null) {
             //if this is new city, add it in cities array
             city.id = uid++;
@@ -79,10 +85,7 @@
             .success(function(data)
             {
                 if(!data.message) {
-                  $scope.newCity.weatherDesc = data.weather[0].description;
-                  $scope.newCity.temperature = Math.round(data.main.temp - 273.15) + ' C'
-                  $scope.newCity.windSpeed = data.wind.speed + ' mps'
-
+                  $scope.newCity.data = data;
                   CitiesService.save($scope.newCity);
                   $scope.newCity = {};
                 } else {
