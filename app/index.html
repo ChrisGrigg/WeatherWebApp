@@ -11,52 +11,25 @@
   <body>
     
     <div class="container" ng-controller="CityController">
-        <form>
-        <label>Name</label> 
-            <input type="text" name="name" ng-model="newCity.name">
-            <br>
+      <div class="row"><!-- /.col-lg-6 --> 
+        <div class="col-lg-6"> 
+          <div class="input-group"> 
+            <input type="text" class="form-control" placeholder="City Name ..." name="name" ng-model="newCity.name">
             <input type="hidden" ng-model="newCity.id">
-         <input type="button" value="Save" ng-click="saveCity()">
-        </form>
-    <table>
-    <thead> 
-    <tr>
-        <th>Name</th>
-        <th>Weather</th>
-        <th>Wind speed</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="city in cities | orderBy:'-id'">
-        <td>{{ city.name }}</td>
-        <td>{{ city.weather.weather[0].description }}</td>
-        <td>{{ city.weather.wind.speed }}</td>
-        <td>
-            <a href="#" ng-click="delete(city.id)">delete</a>
-        </td>
-     </tr>
-    </tbody>
-    </table>    
-    </div>
-<!--
-    <div class="container" ng-controller="CitiesController">
-      <form novalidate class="simple-form">
-        City Name: <input type="text" ng-model="field.city" /><br />
-        <input type="submit" ng-click="saveCity()" value="Save" />
-      </form>
+            <span class="input-group-btn"> 
+              <button class="btn btn-default" type="button" value="Save" ng-click="saveCity()">Save!</button> 
+            </span> 
+          </div><!-- /input-group --> 
+        </div><!-- /.col-lg-6 --> 
+      </div><!-- /.row -->
     
-      <ul class="">
-        <li class="" ng-repeat="weatherItem in weatherList">
-            <h3><strong>{{weatherItem.name}}</strong></h3>
-            <p>Wind speed: {{weatherItem.wind.speed}} |
-            Description: {{weatherItem.weather[0].description}} |
-            <b><a href="#" ng-click="edit(weatherItem.name)">Edit</a> |</b>
-            <b><a href="#" ng-click="delete(weatherItem.name)">Delete</a></b></p>
-        </li>
-      </ul>
+      <div class="list-group">
+          <div class="list-group-item" ng-repeat="city in cities | orderBy:'-id'">
+              <h4 class="list-group-item-heading">{{ city.name }}</h4>
+            <p class="list-group-item-text"><b>Weather: </b>{{ city.weather.weather[0].description }} | <b>Wind Speed: </b>{{ city.weather.wind.speed }} | <a href="#" ng-click="delete(city.id)">delete</a></p>
+          </div>
+      </div>
     </div>
--->
 
     <script src="scripts/vendor/angular.min.js"></script>
     <script src="scripts/app.js"></script>
