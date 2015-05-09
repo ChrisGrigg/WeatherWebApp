@@ -62,7 +62,9 @@ module.service('CitiesService', function () {
 module.controller('CityController', ['$scope', '$http', 'CitiesService', function ($scope, $http, CitiesService) {
  
     $scope.cities = CitiesService.list();
- 
+  
+    $scope.newCity = $scope.cities[0]; // start off with Brisbane and its weather data as default
+  
     $scope.saveCity = function () {
       
       $http.get('http://api.openweathermap.org/data/2.5/weather?q='+$scope.newCity.name)
@@ -77,6 +79,8 @@ module.controller('CityController', ['$scope', '$http', 'CitiesService', functio
                 alert('error loading weatherAppCtrl json');
             });
     }
+    
+    $scope.saveCity(); // invoke save City on init to save Brisbane weather data
  
     $scope.delete = function (id) {
  
