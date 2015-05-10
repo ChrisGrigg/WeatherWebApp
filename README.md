@@ -14,6 +14,6 @@ Quick Start
 
 Install Node.js and then:
 
-$ git clone git://github.com/ChrisGrigg/WeatherWebApp/
-$ cd WeatherWebApp
-$ npm install
+- $ git clone git://github.com/ChrisGrigg/WeatherWebApp/
+- $ cd WeatherWebApp
+- $ npm install
