@@ -1,6 +1,6 @@
 # WeatherWebApp
 
-An app where users can enter cities they would like to see weather for and view a list. Angular best practices have been followed where possible and the structure is desinged to be scalable and testable.
+An app where users can enter cities they would like to see weather for and view a list.
 
 TODO:
 
@@ -14,6 +14,7 @@ Quick Start
 
 Install Node.js and then:
 
-- $ git clone git://github.com/ChrisGrigg/WeatherWebApp/
-- $ cd WeatherWebApp
-- $ npm install
+- git clone git://github.com/ChrisGrigg/WeatherWebApp/
+- cd WeatherWebApp
+- npm install
+- npm install gulp -g
