@@ -2,9 +2,9 @@
 {
   'use strict';
   
-  var app = angular.module('app', []);
+  angular.module('app', [])
  
-  app.service('CitiesService', function () {
+  .service('CitiesService', function () {
     //to create unique city id
     var uid = 1;
      
@@ -16,12 +16,12 @@
      
     //save method create a new city if not already exists
     //else update the existing object
-    this.save = function (city) {
+    this.save = function (city, data) {
       
         // format and simplify data for city
-        city.weatherDesc = city.data.weather[0].description;
-        city.temperature = Math.round(city.data.main.temp - 273.15); // Temperature is in Kelvin so requires formula to conert to Celcius
-        city.windSpeed = city.data.wind.speed; // append wind speed format
+        city.weatherDesc = data.weather[0].description;
+        city.temperature = Math.round(data.main.temp - 273.15); // Temperature is in Kelvin so requires formula to conert to Celcius
+        city.windSpeed = data.wind.speed; // append wind speed format
         
         if (city.id == null) {
             //if this is new city, add it in cities array
@@ -64,33 +64,35 @@
     this.list = function () {
         return cities;
     }
-  });
+  })
  
-  app.controller('CityController', ['$scope', '$http', 'CitiesService', function ($scope, $http, CitiesService) {
-
-    var url = 'http://api.openweathermap.org/data/2.5/weather?q=';
+  .controller('CityController', ['$scope', '$http', 'CitiesService', function ($scope, $http, CitiesService) {
+    // acting as const
+    var URL = 'http://api.openweathermap.org/data/2.5/weather?q=';
     
-    $scope.cities = CitiesService.list();
+    $scope.cities = CitiesService.list(); // get full list of cities
   
     $scope.newCity = $scope.cities[0]; // start off with Brisbane and its weather data as default
   
     $scope.saveCity = function () {
-      
-      $http.get(url+$scope.newCity.name)
+      // first get all weather data relating to city
+      $http.get(URL+$scope.newCity.name)
             .success(function(data)
             {
+                // if there is no error message
                 if(!data.message) {
-                  $scope.newCity.data = data;
-                  CitiesService.save($scope.newCity);
-                  $scope.newCity = {};
+                  CitiesService.save($scope.newCity, data); // pass all city and weather data to be saved to city Array
+                  $scope.newCity = {}; // reset object
                   $scope.orderProp = '-id'; // order by id so newest entry is at top of list
                 } else {
+                  // create error pop up and make field blank
                   alert('Error loading country data, please try again.');
                   $scope.newCity = '';
                 }
             })
             .error(function()
             {
+                // create error pop up and make field blank
                 alert('Error loading country data, please try again.');
                 $scope.newCity = '';
             });
@@ -98,13 +100,18 @@
     
     $scope.saveCity(); // invoke save City on init to save Brisbane weather data
  
+    // delete current item in list
     $scope.delete = function (id) {
- 
         CitiesService.delete(id);
         if ($scope.newCity.id == id) $scope.newCity = {};
     }
     
-    // order by any field
+    // order the Angular list by any field listed below
+    // 0 = name
+    // 1 = weatherDesc
+    // 2 = temperature
+    // 3 = windSpeed
+    //
     $scope.orderBy = function(value) {
       if(value === 0) {
         $scope.orderProp = 'name';

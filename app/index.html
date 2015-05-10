@@ -11,7 +11,7 @@
     
     <div class="container" ng-controller="CityController">
       <h1>Weather Web App</h1>
-      <div class="row"><!-- /.col-lg-6 --> 
+      <div class="row">
         <div class="col-lg-6"> 
           <div class="input-group"> 
             <input type="text" class="form-control" placeholder="City Name ..." name="name" ng-model="newCity.name">
@@ -19,9 +19,9 @@
             <span class="input-group-btn"> 
               <button class="btn btn-default" type="button" value="Save" ng-click="saveCity()">Save!</button> 
             </span> 
-          </div><!-- /input-group --> 
-        </div><!-- /.col-lg-6 --> 
-      </div><!-- /.row -->
+          </div>
+        </div>
+      </div>
     
       <div class="list-group">
         <h4>Order by: </h4><a href='#' ng-click='orderBy(0)'>City name</a> | <a href='#' ng-click='orderBy(1)'>Weather</a> | <a href='#' ng-click='orderBy(2)'>Temperature</a> | <a href='#' ng-click='orderBy(3)'>Wind Speed</a>
@@ -33,9 +33,9 @@
     </div>
 
     <script src="scripts/vendor/angular.min.js"></script>
-    <script src="scripts/app.js"></script>
     <script src="scripts/vendor/jquery.min.js"></script>
     <script src="scripts/vendor/bootstrap.min.js"></script>
+    <script src="scripts/app.js"></script>
   
   </body>
 </html>
