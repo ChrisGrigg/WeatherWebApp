@@ -9,3 +9,11 @@ TODO:
 - The 3 day forecast is not displayed. The extra data could be obtained from the Open Weather Map API and displayed in each list item.
 - The list cannot be ordered manually. The 'id' attribute of the list item would need to be edited.
 - Form validation is not implemented so the user can type anything in the input field. An error is given so the app does not crash however. Ideally autocomplete would utilised to suggest Australian cities.
+
+Quick Start
+
+Install Node.js and then:
+
+$ git clone git://github.com/ChrisGrigg/WeatherWebApp/
+$ cd WeatherWebApp
+$ npm install
