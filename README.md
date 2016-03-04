@@ -12,7 +12,7 @@ TODO:
 - The list cannot be ordered manually. The 'id' attribute of the list item would need to be edited.
 - Form validation is not implemented so the user can type anything in the input field. An error is given so the app does not crash however. Ideally autocomplete would utilised to suggest Australian cities.
 
-Instalattion steps
+Installation steps
 
 Install Node.js and then:
 
@@ -20,4 +20,4 @@ Install Node.js and then:
 - cd WeatherWebApp
 - npm install
 - npm install gulp -g
-
+- gulp serve
