@@ -69,7 +69,7 @@
   .controller('CityController', ['$scope', '$http', 'CitiesService', function ($scope, $http, CitiesService) {
     // acting as const
     var URL = 'http://api.openweathermap.org/data/2.5/weather?q=';
-	var APPID = "&APPID=4fc1c3b55b2c1e1fcaa65ae67e2841ca";
+	var APP_ID = "&APPID=4fc1c3b55b2c1e1fcaa65ae67e2841ca";
 
     $scope.cities = CitiesService.list(); // get full list of cities
 
@@ -77,7 +77,7 @@
 
     $scope.saveCity = function () {
       // first get all weather data relating to city
-      $http.get(URL + $scope.newCity.name + APPID)
+      $http.get(URL + $scope.newCity.name + APP_ID)
             .success(function(data)
             {
                 // if there is no error message
